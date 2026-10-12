@@ -1,0 +1,125 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "Soria";
+  src: url("/fonts/Soria-Bold.woff") format("woff"),
+       url("https://fonts.cdnfonts.com/s/78809/Soria-Bold.woff") format("woff");
+  font-display: swap;
+  font-weight: normal;
+  font-style: normal;
+}
+
+.font-soria {
+  font-family: "Soria", "Playfair Display", Georgia, serif;
+}
+
+:root {
+  --bg: #f7f2f3;
+  --surface: #ffffff;
+  --ink: #3d2233;
+  --muted: #7a6570;
+  --line: #e5d9dd;
+  --halo: #a85c44;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #1f1119;
+    --surface: #2a1a24;
+    --ink: #f5ebef;
+    --muted: #b79fab;
+    --line: #43293a;
+    --halo: #d08466;
+  }
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+}
+
+:focus-visible {
+  outline: 2px solid var(--halo);
+  outline-offset: 2px;
+}
+
+/* One deliberate motion moment: the halo ring draws itself once on load. */
+@keyframes draw {
+  from {
+    stroke-dashoffset: 820;
+  }
+
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.halo-ring {
+  stroke-dasharray: 820;
+  animation: draw 1.6s ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .halo-ring {
+    animation: none;
+  }
+}
+
+@keyframes marqueeGPU {
+  0% {
+    transform: translate3d(0%, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.animate-marquee-gpu {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+  backface-visibility: hidden;
+  perspective: 1000px;
+  transform: translate3d(0, 0, 0);
+  animation: marqueeGPU 40s linear infinite;
+}
+
+.animate-marquee-gpu:hover,
+.animate-marquee-gpu.paused {
+  animation-play-state: paused;
+}
+
+.hero-glow-text {
+  text-shadow:
+    0 0 12px rgba(255, 255, 255, 0.95),
+    0 0 28px rgba(255, 252, 250, 0.9),
+    0 0 48px rgba(247, 242, 243, 0.85),
+    0 0 72px rgba(255, 255, 255, 0.55),
+    0 2px 4px rgba(255, 255, 255, 0.4);
+}
+
+.hero-glow-text-subtle {
+  color: #3b1a30;
+  text-shadow:
+    0 0 12px rgba(255, 255, 255, 0.9),
+    0 0 20px rgba(255, 255, 255, 0.7);
+}
+
+.animate-marquee-gpu-slow {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+  backface-visibility: hidden;
+  transform: translate3d(0, 0, 0);
+  animation: marqueeGPU 28s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee-gpu,
+  .animate-marquee-gpu-slow {
+    animation: none;
+  }
+}
